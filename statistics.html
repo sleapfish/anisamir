@@ -1,35 +1,130 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>CodePen - Vertical Timeline</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:100i,300,400,500,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Allura" rel="stylesheet"><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'><link rel="stylesheet" href="./style.css">
-
+  <link href="https://fonts.googleapis.com/css?family=Allura" rel="stylesheet">
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    header {
+      position: fixed;
+      width: 100%;
+      background: #4169e1;
+      color: white;
+      z-index: 1000;
+      text-align: center;
+      padding: 10px 0;
+    }
+    .header-container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .header-container h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+    .header-container p {
+      margin: 5px 0;
+      font-size: 1.2em;
+    }
+    .section-container {
+      position: absolute;
+      top: 80px; /* Adjust this value if header height changes */
+      bottom: 0;
+      width: 100%;
+    }
+    .iframe-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+    .iframe-container.active {
+      display: block;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .overlay {
+      position: absolute;
+      width: 100%;
+      height: 50px; /* Adjust the height to cover the header */
+      background-color: white;
+      top: 0;
+      z-index: 1;
+    }
+    .nav-buttons {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
-<!-- partial:index.partial.html -->
 <header>
-  <div class="container text-center">
+  <div class="header-container">
     <h1>Naših 5 godina</h1>
     <p>Anisa & Samir</p>
-	<a href="index.html" class="btn btn-info" role="button" style="margin-left: 10px;">VREMENSKA CRTA</a>
+    <a href="index.html" class="btn btn-info" role="button">VREMENSKA CRTA</a>
   </div>
 </header>
 
-<section>
-  <div>
-	<div style="position: relative; width: 100%; height: 250vh;"> <!-- Adjust the height as necessary -->
-	<iframe src="https://app.doubletext.me/ratio/279388822" style="position: absolute; top: 0%; height: 25%; width: 100%;"></iframe>
-	<iframe src="https://app.doubletext.me/streak/583382141" style="position: absolute; top: 25%; height: 25%; width: 100%;"></iframe>
-	<iframe src="https://app.doubletext.me/activity-day/3141386262" style="position: absolute; top: 50%; height: 25%; width: 100%;"></iframe>
-	<iframe src="https://app.doubletext.me/wordcloud/3992940461" style="position: absolute; top: 75%; height: 25%; width: 100%;"></iframe>
-</div>
+<section class="section-container">
+  <div class="iframe-container active" id="iframe1">
+    <div class="overlay"></div>
+    <iframe src="https://app.doubletext.me/ratio/279388822"></iframe>
+  </div>
+  <div class="iframe-container" id="iframe2">
+    <div class="overlay"></div>
+    <iframe src="https://app.doubletext.me/streak/583382141"></iframe>
+  </div>
+  <div class="iframe-container" id="iframe3">
+    <div class="overlay"></div>
+    <iframe src="https://app.doubletext.me/activity-day/3141386262"></iframe>
+  </div>
+  <div class="iframe-container" id="iframe4">
+    <div class="overlay"></div>
+    <iframe src="https://app.doubletext.me/wordcloud/3992940461"></iframe>
   </div>
 </section>
-<!-- partial -->
-  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-<script src='https://cdn.jsdelivr.net/scrollreveal.js/3.3.1/scrollreveal.min.js'></script><script  src="./script.js"></script>
 
+<div class="nav-buttons">
+  <button class="btn btn-primary" onclick="showIframe(1)">1</button>
+  <button class="btn btn-primary" onclick="showIframe(2)">2</button>
+  <button class="btn btn-primary" onclick="showIframe(3)">3</button>
+  <button class="btn btn-primary" onclick="showIframe(4)">4</button>
+</div>
+
+<script>
+  function showIframe(index) {
+    const iframes = document.querySelectorAll('.iframe-container');
+    iframes.forEach((iframe, i) => {
+      if (i === index - 1) {
+        iframe.classList.add('active');
+      } else {
+        iframe.classList.remove('active');
+      }
+    });
+  }
+</script>
+
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdn.jsdelivr.net/scrollreveal.js/3.3.1/scrollreveal.min.js'></script>
+<script src="./script.js"></script>
 </body>
 </html>
